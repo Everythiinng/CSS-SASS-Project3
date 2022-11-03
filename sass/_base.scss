@@ -1,0 +1,75 @@
+// COLOR VARIABLES
+$color-primary: #c69963;
+$color-primary-dark: #b28451;
+
+$color-secondary: #101d2c;
+
+$color-grey-light-1: #f9f7f6;
+$color-grey-light-2: #aaa;
+
+$color-grey-dark-1: #54483a;
+$color-grey-dark-2: #6d5d4b;
+
+// FONT VARIABLES
+$font-primary: "Nunito", sans-serif;
+$font-display: "Josefin Sans", sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em; // 1200/16 = 75;
+$bp-large: 62.5em; // 1000px/16 = 62.5
+$bp-medium: 50em; // 800px/16px = 50;
+$bp-small: 37.5em; // 600px/16px = 37.5em;
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // 10px/16px = 62.5% => 1rem = 10px
+
+  @media only screen and (max-width: $bp-largest) {
+    font-size: 50%;
+  }
+}
+
+body {
+  font-family: $font-primary;
+  color: $color-grey-dark-2;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content); // min-content and auto is the same thing
+  grid-template-columns:
+    [sidebar-start] 8rem
+    [sidebar-end full-start] minmax(6rem, 1fr)
+    [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+    [center-end] minmax(6rem, 1fr)
+    [full-end]; // We wanted to have 1140px for the width of the website, so we divide and we get 140px
+  // We added 2 columns on the edges of the 8 columns so that they stay in the middle which is called FULLBLEED
+
+  @media only screen and (max-width: $bp-largest) {
+    grid-template-rows: 6rem 80vh min-content 40vw repeat(3, min-content); // min-content and auto is the same thing
+
+    grid-template-columns:
+      [full-start] minmax(6rem, 1fr)
+      [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end])
+      [center-end] minmax(6rem, 1fr)
+      [full-end];
+  }
+  @media only screen and (max-width: $bp-medium) {
+    grid-template-rows: 6rem calc(100vh - 6rem);
+    // min-content min-content min-content repeat(
+    //     3,
+    //     min-content
+    //   ); // min-content and auto is the same thing // we will not be mentioning the 6 last rows because they are all min-content and
+    // CSS grid automatically creates them and places them
+  }
+}
